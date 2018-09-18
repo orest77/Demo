@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace DemoTask
 {
+    
     class Fruit
     {
         private string name;
@@ -34,6 +35,9 @@ namespace DemoTask
             }
         }
 
+        public Fruit()
+        { }
+
         public Fruit(string _name , string _color)
         {
             this.name = _name;
@@ -42,7 +46,20 @@ namespace DemoTask
 
         virtual public void Input()
         {
+            Console.WriteLine("Input some fruit");
+            name = Console.ReadLine();
+            Console.WriteLine($"Input color {name}");
+            color = Console.ReadLine();
+        }
 
+        virtual public void Print()
+        {
+            Console.WriteLine("Mame: {0} Color: {1}", this.name, this.color);
+        }
+
+        public override string ToString()
+        {
+            return base.ToString();
         }
     }
 }
