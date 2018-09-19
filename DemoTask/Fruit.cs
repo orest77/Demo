@@ -15,7 +15,8 @@ namespace DemoTask
     //- властивості для полів, 
     //- перевизначити метод ToString(). 
     [Serializable]
-    class Fruit : IComparable<Fruit>
+    [XmlInclude(typeof(Citrus))]
+    public class Fruit : IComparable<Fruit>
     {
         private string name;
         private string color;

@@ -9,11 +9,11 @@ using System.Xml.Serialization;
 namespace DemoTask
 {
     [Serializable]
-    class Citrus : Fruit
+    public class Citrus : Fruit
     {
         private double vitaminC;
 
-        public double VitaminC { get; set; }
+        public double VitaminC { get { return vitaminC; } set { vitaminC = value; } }
 
         public Citrus()
         {

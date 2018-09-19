@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Serialization;
 
 namespace DemoTask
 {
@@ -12,7 +13,7 @@ namespace DemoTask
         static void Main(string[] args)
         {
             List<Fruit> fruits = new List<Fruit>();
-           
+
 
             if (File.Exists("fruit.txt") && File.ReadAllText("fruit.txt").Length != 0)
             {
@@ -41,14 +42,16 @@ namespace DemoTask
             }
 
             Console.WriteLine("__Yellow fruits__");
-            foreach(Fruit ColorFruit in fruits.Where(x => x.Color == "yellow" ) )
+            foreach (Fruit ColorFruit in fruits.Where(x => x.Color == "yellow"))
             {
-                ColorFruit.Print();                
+                ColorFruit.Print();
             }
 
+            SaveInXmlFormat(fruits, "XmlSerialize.xml");
+            DeserializeXmlFormat(fruits,"XmlSerialize.xml");
 
             Console.ReadKey();
-            
+
         }
 
         private static List<Fruit> LoadFruitsFromFile(string path)
@@ -85,6 +88,27 @@ namespace DemoTask
                 Console.WriteLine(ex.Message);
             }
             return resultList;
+        }
+
+        public static void SaveInXmlFormat(List<Fruit> fruits, string fileName)
+        {
+            XmlSerializer xmlFormat = new XmlSerializer(typeof(List<Fruit>));
+            using (FileStream fileStream = new FileStream(fileName, FileMode.OpenOrCreate, FileAccess.Write, FileShare.None))
+            {
+                xmlFormat.Serialize(fileStream, fruits);
+            }
+            Console.WriteLine("--> Save object in XML-format");
+
+        }
+        public static void DeserializeXmlFormat(List<Fruit> fruits, string fileName)
+        {
+
+            XmlSerializer xmlFormat = new XmlSerializer(typeof(List<Fruit>));
+            using (FileStream fileStream = new FileStream(fileName, FileMode.Open))
+            {
+                fruits = (List<Fruit>)xmlFormat.Deserialize(fileStream);
+            }
+            Console.WriteLine("--> Deserialize object of XML-format");
         }
     }
 }
