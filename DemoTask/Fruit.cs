@@ -76,13 +76,13 @@ namespace DemoTask
         {
             using (StreamWriter sw = new StreamWriter(pathToFile, true))
             {
-                sw.WriteLine($"{this.Name}:{this.Color}");
+                sw.WriteLine($"{this.Name}: {this.Color}");
             }
         }
 
         public override string ToString()
         {
-            return this.Name.ToString() + ":" + this.Color;
+            return this.Name.ToString() + ": " + this.Color;
         }
 
         public int CompareTo(Fruit otherFruit)

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
@@ -36,6 +37,7 @@ namespace DemoTask
                 }
             }
             fruits.Sort();
+
             foreach (Fruit fruit in fruits)
             {
                 fruit.Print();
@@ -47,8 +49,8 @@ namespace DemoTask
                 ColorFruit.Print();
             }
 
-            SaveInXmlFormat(fruits, "XmlSerialize.xml");
-            DeserializeXmlFormat(fruits,"XmlSerialize.xml");
+            SerializeInXmlFormat(fruits, "XmlSerialize.xml");
+            DeserializeXmlFormat("XmlSerialize.xml");
 
             Console.ReadKey();
 
@@ -90,25 +92,43 @@ namespace DemoTask
             return resultList;
         }
 
-        public static void SaveInXmlFormat(List<Fruit> fruits, string fileName)
+        public static void SerializeInXmlFormat(List<Fruit> fruits, string fileName)
         {
             XmlSerializer xmlFormat = new XmlSerializer(typeof(List<Fruit>));
-            using (FileStream fileStream = new FileStream(fileName, FileMode.OpenOrCreate, FileAccess.Write, FileShare.None))
+            try
             {
-                xmlFormat.Serialize(fileStream, fruits);
+                using (FileStream fileStream = new FileStream(fileName, FileMode.OpenOrCreate, FileAccess.Write, FileShare.None))
+                {
+                    xmlFormat.Serialize(fileStream, fruits);
+                }
+                Console.WriteLine("--> Save object in XML-format");
             }
-            Console.WriteLine("--> Save object in XML-format");
+            catch (SerializationException e)
+            {
+                Console.WriteLine("Failed to serialize. Reason: " + e.Message);
+                throw;
+            }
 
         }
-        public static void DeserializeXmlFormat(List<Fruit> fruits, string fileName)
+        public static List<Fruit> DeserializeXmlFormat(string fileName)
         {
-
             XmlSerializer xmlFormat = new XmlSerializer(typeof(List<Fruit>));
-            using (FileStream fileStream = new FileStream(fileName, FileMode.Open))
+            try
             {
-                fruits = (List<Fruit>)xmlFormat.Deserialize(fileStream);
+                using (FileStream fileStream = new FileStream(fileName, FileMode.Open))
+                {
+                    return (List<Fruit>)xmlFormat.Deserialize(fileStream);
+                }              
             }
-            Console.WriteLine("--> Deserialize object of XML-format");
+            catch (SerializationException e)
+            {
+                Console.WriteLine("Failed to deserialize. Reason: " + e.Message);
+                throw;
+            }
+            finally
+            {
+                Console.WriteLine("--> Deserialize object of XML-format");
+            }
         }
     }
 }

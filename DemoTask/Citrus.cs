@@ -8,6 +8,12 @@ using System.Xml.Serialization;
 
 namespace DemoTask
 {
+    //Утворити похідний від нього клас Цитрус, який має:
+    //- поле - вміст вітаміну С в грамах, 
+    //- конструктор з параметрами, 
+    //- властивість, 
+    //- перевизначені методи Input() та Print().
+
     [Serializable]
     public class Citrus : Fruit
     {
@@ -72,7 +78,7 @@ namespace DemoTask
 
         public override string ToString()
         {           
-            return base.Name.ToString() + ":" + this.Color + ":" + this.vitaminC;
+            return base.Name.ToString() + ": " + this.Color + ": " + this.vitaminC;
         }
     }
 }
