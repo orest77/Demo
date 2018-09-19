@@ -1,13 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Serialization;
 
 namespace DemoTask
 {
-    
-    class Fruit
+    // Утворити клас Фрукт, який містить:
+    //- поля назва та колір,
+    //- визначити конструктор з параметрами,
+    //- віртуальні методи Input() та Print(), для зчитування даних з консолі та виведення даних на консоль, а також перевантажити варіанти введення-виведення з файлу.
+    //- властивості для полів, 
+    //- перевизначити метод ToString(). 
+    [Serializable]
+    class Fruit : IComparable<Fruit>
     {
         private string name;
         private string color;
@@ -20,7 +28,7 @@ namespace DemoTask
             }
             set
             {
-                name = value;
+                name = value.ToLower();
             }
         }
         public string Color
@@ -31,7 +39,7 @@ namespace DemoTask
             }
             set
             {
-                color = value;
+                color = value.ToLower();
             }
         }
 
@@ -40,26 +48,45 @@ namespace DemoTask
 
         public Fruit(string _name , string _color)
         {
-            this.name = _name;
-            this.color = _color;
+            this.Name = _name;
+            this.Color = _color;
         }
 
-        virtual public void Input()
+        public virtual void Input()
         {
             Console.WriteLine("Input some fruit");
-            name = Console.ReadLine();
+            Name = Console.ReadLine();
             Console.WriteLine($"Input color {name}");
-            color = Console.ReadLine();
+            Color = Console.ReadLine();
         }
 
-        virtual public void Print()
+        public virtual void Input(string[] fruit)
         {
-            Console.WriteLine("Mame: {0} Color: {1}", this.name, this.color);
+            name = fruit[0];
+            color = fruit[1];           
+        }
+
+        public virtual void Print()
+        {
+            Console.WriteLine(this);
+        }
+
+        public virtual void Print(string pathToFile)
+        {
+            using (StreamWriter sw = new StreamWriter(pathToFile, true))
+            {
+                sw.WriteLine($"{this.Name}:{this.Color}");
+            }
         }
 
         public override string ToString()
         {
-            return base.ToString();
+            return this.Name.ToString() + ":" + this.Color;
+        }
+
+        public int CompareTo(Fruit otherFruit)
+        {          
+            return this.Name.CompareTo(otherFruit.Name);
         }
     }
 }
