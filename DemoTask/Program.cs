@@ -11,31 +11,56 @@ namespace DemoTask
 {
     class Program
     {
+        //Утворити List фруктів і додати до нього 5 різних фруктів і цитрусів.
+        //- Видрукувати дані про ті фрукти, колір яких є 'жовтий'.
+        //- Посортувати список фруктів за назвою і результат вивести у файл
+        //- Передбачити перехоплення виняткових ситуацій
+        //- Сериалізувати-десериалізувати список у Xml форматі
+        //- Написати юніт-тести на методи класів
+
         static void Main(string[] args)
         {
             List<Fruit> fruits = new List<Fruit>();
 
 
-            if (File.Exists("fruit.txt") && File.ReadAllText("fruit.txt").Length != 0)
+            if (File.Exists("fruit.txt") && 
+                File.ReadAllText("fruit.txt").Length != 0)
             {
                 fruits = LoadFruitsFromFile("fruit.txt");
             }
+            else if (File.Exists("XmlSerialize.xml") &&
+                File.ReadAllText("XmlSerialize.xml").Length != 0)
+            {
+                fruits = DeserializeXmlFormat("XmlSerialize.xml");
+            }
             else
             {
-                for (int i = 0; i < 3; i++)
+                try
                 {
-                    fruits.Add(new Fruit());
-                    fruits.Add(new Citrus());
+                    for (int i = 0; i < 3; i++)
+                    {
+                        fruits.Add(new Fruit());
+                        fruits.Add(new Citrus());
+                    }
+
+
+                    foreach (Fruit fruit in fruits)
+                    {
+                        fruit.Input();
+                        fruit.Print();
+                        fruit.Print("fruit.txt");
+                    }
                 }
-
-
-                foreach (Fruit fruit in fruits)
+                catch(Exception ex)
                 {
-                    fruit.Input();
-                    fruit.Print();
-                    fruit.Print("fruit.txt");
+                    Console.WriteLine(ex.Message);
+                }
+                finally
+                {
+                    SerializeInXmlFormat(fruits, "XmlSerialize.xml");                    
                 }
             }
+
             fruits.Sort();
 
             foreach (Fruit fruit in fruits)
@@ -49,8 +74,8 @@ namespace DemoTask
                 ColorFruit.Print();
             }
 
-            SerializeInXmlFormat(fruits, "XmlSerialize.xml");
-            DeserializeXmlFormat("XmlSerialize.xml");
+            //SerializeInXmlFormat(fruits, "XmlSerialize.xml");
+            //DeserializeXmlFormat(fruits, "XmlSerialize.xml");
 
             Console.ReadKey();
 
@@ -110,19 +135,20 @@ namespace DemoTask
             }
 
         }
+
         public static List<Fruit> DeserializeXmlFormat(string fileName)
         {
             XmlSerializer xmlFormat = new XmlSerializer(typeof(List<Fruit>));
             try
             {
-                using (FileStream fileStream = new FileStream(fileName, FileMode.Open))
+                using (FileStream fileStream = new FileStream(fileName, FileMode.Open, FileAccess.Read, FileShare.Read))
                 {
-                    return (List<Fruit>)xmlFormat.Deserialize(fileStream);
+                    return  (List<Fruit>)xmlFormat.Deserialize(fileStream);
                 }              
             }
-            catch (SerializationException e)
+            catch (FileNotFoundException e)
             {
-                Console.WriteLine("Failed to deserialize. Reason: " + e.Message);
+                Console.WriteLine("Failed not found of deserialize. Reason: " + e.Message);
                 throw;
             }
             finally
