@@ -44,7 +44,7 @@ namespace FruitTests
             String.Equals(actual, expected);
         }
         [Test]
-        public void InpuFileTest()
+        public void InputFileTest()
         {
             //Arrange           
             string texts;

@@ -28,7 +28,7 @@ namespace DemoTask
 
         public Citrus(string _name, string _color, double _vitaminC) : base(_name, _color)
         {
-            this.vitaminC = _vitaminC;
+            VitaminC = _vitaminC;
         }
 
         public override void Input()
@@ -71,14 +71,14 @@ namespace DemoTask
         {
             using (StreamWriter sw = new StreamWriter(pathToFile, true))
             {
-                sw.WriteLine($"{this.Name}: {this.Color}: {this.vitaminC}");
+                sw.WriteLine(this);
                 
             }
         }
 
         public override string ToString()
         {           
-            return base.Name.ToString() + ": " + this.Color + ": " + this.vitaminC;
+            return base.ToString() + ": " + VitaminC;
         }
     }
 }

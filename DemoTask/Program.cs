@@ -23,13 +23,13 @@ namespace DemoTask
             List<Fruit> fruits = new List<Fruit>();
 
 
-            if (File.Exists("fruit.txt") && 
-                File.ReadAllText("fruit.txt").Length != 0)
+            if (File.Exists("fruit.txt") &&
+                new FileInfo("fruit.txt").Length > 0)
             {
                 fruits = LoadFruitsFromFile("fruit.txt");
             }
             else if (File.Exists("XmlSerialize.xml") &&
-                File.ReadAllText("XmlSerialize.xml").Length != 0)
+                new FileInfo("XmlSerialize.xml").Length > 0)
             {
                 fruits = DeserializeXmlFormat("XmlSerialize.xml");
             }
@@ -74,8 +74,7 @@ namespace DemoTask
                 ColorFruit.Print();
             }
 
-            //SerializeInXmlFormat(fruits, "XmlSerialize.xml");
-            //DeserializeXmlFormat(fruits, "XmlSerialize.xml");
+           
 
             Console.ReadKey();
 

@@ -49,8 +49,8 @@ namespace DemoTask
 
         public Fruit(string _name , string _color)
         {
-            this.Name = _name;
-            this.Color = _color;
+            Name = _name;
+            Color = _color;
         }
 
         public virtual void Input()
@@ -76,13 +76,13 @@ namespace DemoTask
         {
             using (StreamWriter sw = new StreamWriter(pathToFile, true))
             {
-                sw.WriteLine($"{this.Name}: {this.Color}");
+                sw.WriteLine(this);
             }
         }
 
         public override string ToString()
         {
-            return this.Name.ToString() + ": " + this.Color;
+            return Name + ": " + Color;
         }
 
         public int CompareTo(Fruit otherFruit)
