@@ -30,7 +30,9 @@ namespace DemoTask
         {
             VitaminC = _vitaminC;
         }
-
+        /// <summary>
+        /// Input method from console and provide interception of exceptional situations ',' to '.'
+        /// </summary>
         public override void Input()
         {
             Console.WriteLine("Input some citrus");
@@ -47,7 +49,11 @@ namespace DemoTask
                 throw new Exception("Wrong string-to-double format");
             }
         }
-
+        /// <summary>
+        /// Overload  options from a file 
+        /// Provide interception of exceptional situations
+        /// </summary>
+        /// <param name="fruit"></param>
         public override void Input(string[] fruit)
         {
             Name = fruit[0];

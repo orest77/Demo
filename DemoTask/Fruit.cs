@@ -52,7 +52,9 @@ namespace DemoTask
             Name = _name;
             Color = _color;
         }
-
+        /// <summary>
+        /// Input method from console
+        /// </summary>
         public virtual void Input()
         {
             Console.WriteLine("Input some fruit");
@@ -60,18 +62,26 @@ namespace DemoTask
             Console.WriteLine($"Input color {name}");
             Color = Console.ReadLine();
         }
-
+        /// <summary>
+        /// Overload  options from a file
+        /// </summary>
+        /// <param name="fruit"></param>
         public virtual void Input(string[] fruit)
         {
             name = fruit[0];
             color = fruit[1];           
         }
-
+        /// <summary>
+        /// Print metod from console
+        /// </summary>
         public virtual void Print()
         {
             Console.WriteLine(this);
         }
-
+        /// <summary>
+        /// Method of writing data into a file
+        /// </summary>
+        /// <param name="pathToFile"></param>
         public virtual void Print(string pathToFile)
         {
             using (StreamWriter sw = new StreamWriter(pathToFile, true))
@@ -79,12 +89,19 @@ namespace DemoTask
                 sw.WriteLine(this);
             }
         }
-
+        /// <summary>
+        /// Override to string
+        /// </summary>
+        /// <returns></returns>
         public override string ToString()
         {
             return Name + ": " + Color;
         }
-
+        /// <summary>
+        /// Sort data by name
+        /// </summary>
+        /// <param name="otherFruit"></param>
+        /// <returns></returns>
         public int CompareTo(Fruit otherFruit)
         {          
             return this.Name.CompareTo(otherFruit.Name);

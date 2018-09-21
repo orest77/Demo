@@ -9,6 +9,8 @@ using System.Xml.Serialization;
 
 namespace DemoTask
 {
+
+    
     class Program
     {
         //Утворити List фруктів і додати до нього 5 різних фруктів і цитрусів.
@@ -23,15 +25,20 @@ namespace DemoTask
             List<Fruit> fruits = new List<Fruit>();
 
 
-            if (File.Exists("fruit.txt") &&
-                new FileInfo("fruit.txt").Length > 0)
+            /// <summary>
+            /// Provide interception of exceptional situations
+            /// Check for files to read
+            /// If there are no files, run the console input
+            /// </summary>   
+            if (File.Exists(Constants.FileTxtforLoad) &&
+                new FileInfo(Constants.FileTxtforLoad).Length > 0)
             {
-                fruits = LoadFruitsFromFile("fruit.txt");
+                fruits = LoadFruitsFromFile(Constants.FileTxtforLoad);
             }
-            else if (File.Exists("XmlSerialize.xml") &&
-                new FileInfo("XmlSerialize.xml").Length > 0)
+            else if (File.Exists(Constants.FileXmlSerialize) &&
+                new FileInfo(Constants.FileXmlSerialize).Length > 0)
             {
-                fruits = DeserializeXmlFormat("XmlSerialize.xml");
+                fruits = DeserializeXmlFormat(Constants.FileXmlSerialize);
             }
             else
             {
@@ -48,7 +55,7 @@ namespace DemoTask
                     {
                         fruit.Input();
                         fruit.Print();
-                        fruit.Print("fruit.txt");
+                        fruit.Print(Constants.FileTxtforLoad);
                     }
                 }
                 catch(Exception ex)
@@ -57,7 +64,7 @@ namespace DemoTask
                 }
                 finally
                 {
-                    SerializeInXmlFormat(fruits, "XmlSerialize.xml");                    
+                    SerializeInXmlFormat(fruits, Constants.FileXmlSerialize);                    
                 }
             }
 
@@ -67,7 +74,9 @@ namespace DemoTask
             {
                 fruit.Print();
             }
-
+            /// <summary>
+            ///Print fruits of yellow color
+            /// <summary>
             Console.WriteLine("__Yellow fruits__");
             foreach (Fruit ColorFruit in fruits.Where(x => x.Color == "yellow"))
             {
@@ -79,7 +88,11 @@ namespace DemoTask
             Console.ReadKey();
 
         }
-
+        /// <summary>
+        /// Method to load data 
+        /// </summary>
+        /// <param name="path"></param>
+        /// <returns></returns>
         private static List<Fruit> LoadFruitsFromFile(string path)
         {
             List<Fruit> resultList = new List<Fruit>();
@@ -115,7 +128,11 @@ namespace DemoTask
             }
             return resultList;
         }
-
+        /// <summary>
+        /// Method for Serialize
+        /// </summary>
+        /// <param name="fruits"></param>
+        /// <param name="fileName"></param>
         public static void SerializeInXmlFormat(List<Fruit> fruits, string fileName)
         {
             XmlSerializer xmlFormat = new XmlSerializer(typeof(List<Fruit>));
@@ -134,7 +151,11 @@ namespace DemoTask
             }
 
         }
-
+        /// <summary>
+        /// method for Deserialize
+        /// </summary>
+        /// <param name="fileName"></param>
+        /// <returns></returns>
         public static List<Fruit> DeserializeXmlFormat(string fileName)
         {
             XmlSerializer xmlFormat = new XmlSerializer(typeof(List<Fruit>));
