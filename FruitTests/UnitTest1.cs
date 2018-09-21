@@ -84,11 +84,13 @@ namespace FruitTests
             expected.Add(new Fruit( "banana", "yellow"));
             expected.Add(new Fruit("apple", "green"));
             expected.Add(new Fruit("strawberries", "red"));
+            expected.Add(new Citrus("tangerine", "orange", 19.5));
+            expected.Add(new Citrus("lime", "green" , 19.6));
+            expected.Add(new Citrus("orange", "orange", 14.2));
             
             string result = String.Empty;
             //Act
-            //var assembly = Assembly.GetExecutingAssembly();
-            //using (var stream = assembly.GetManifestResourceStream("Project.txt"))
+          
             using (var reader = new StreamReader(@"C:\Users\Orest\source\repos\DemoTask\Project.txt"))
             {
                 string line;

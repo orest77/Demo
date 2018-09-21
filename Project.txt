@@ -1,3 +1,6 @@
-banana: yellow
-apple: green
-strawberries: red
+banana:yellow
+tangerine : orange : 19,5
+apple:green
+lime : green : 19,6
+strawberries:red
+orange : orange : 14,2
