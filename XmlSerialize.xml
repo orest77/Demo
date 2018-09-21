@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<ArrayOfFruit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Fruit>
+    <Name>apple</Name>
+    <Color>green</Color>
+  </Fruit>
+  <Fruit>
+    <Name>banana</Name>
+    <Color>yellow</Color>
+  </Fruit>
+  <Fruit xsi:type="Citrus">
+    <Name>lime </Name>
+    <Color> green </Color>
+    <VitaminC>19.6</VitaminC>
+  </Fruit>
+  <Fruit xsi:type="Citrus">
+    <Name>orange </Name>
+    <Color> orange </Color>
+    <VitaminC>14.2</VitaminC>
+  </Fruit>
+  <Fruit>
+    <Name>strawberries</Name>
+    <Color>red</Color>
+  </Fruit>
+  <Fruit xsi:type="Citrus">
+    <Name>tangerine </Name>
+    <Color> orange </Color>
+    <VitaminC>19.5</VitaminC>
+  </Fruit>
+</ArrayOfFruit>
