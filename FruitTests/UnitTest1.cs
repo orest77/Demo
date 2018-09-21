@@ -4,6 +4,7 @@ using NUnit.Framework;
 using DemoTask;
 using System.IO;
 using System.Reflection;
+using System.Collections.Generic;
 
 namespace FruitTests
 {
@@ -49,32 +50,10 @@ namespace FruitTests
             //Assert
             String.Equals(actual, expected);
         }
-        [Test]
-        public void InputFileTest()
-        {
-            //Arrange           
-            string texts;
-            string result;
-            //Act
-            Fruit actual = new Fruit("banana", "yellow");
 
-            var assembly = Assembly.GetExecutingAssembly();
-            using (var stream = assembly.GetManifestResourceStream("Project.txt"))
-            using (var reader = new StreamReader(stream))
-            using (StringWriter stringWriter = new StringWriter())
-
-            {
-                Console.SetOut(stringWriter);
-                texts = reader.ReadToEnd();
-                actual.Print();
-                result = stringWriter.ToString();
-            }
-
-            //Assert
-            String.Equals(texts.ToString(), result);
-        
-       
-        }
+        /// <summary>
+        /// Verify Prinnt to Console
+        /// </summary>
         [Test]
         public void TestPrintToConsole()
         {
@@ -95,31 +74,10 @@ namespace FruitTests
             //Assert
             Assert.AreEqual(expected, result);
         }
-        [Test]        
-        public void TestPrintToFile()
-        {
-            // Arrange
-            Fruit fruit1 = new Fruit("banana", "yellow");
-            Fruit fruit2 = new Fruit("apple", "green");
-            Fruit fruit3 = new Fruit("strawberries", "red");
-            Fruit[] expected = new Fruit[] { fruit1, fruit2, fruit3 };
-            string result = String.Empty;
-            //Act
-            var assembly = Assembly.GetExecutingAssembly();
-            using (var stream = assembly.GetManifestResourceStream("Project.txt"))
-            using (var reader = new StreamReader(stream))
-            {
-                string line;
-                while ((line = reader.ReadLine()) != null)
-                {
-                    result += line + "\n";
-                }
-            }
-
-            //Accert     
-            CollectionAssert.Equals(expected.ToString(), result);
-
-        }
+               
+        /// <summary>
+        /// Verify method ToString
+        /// </summary>
         [Test]
         public void TestToString()
         {
