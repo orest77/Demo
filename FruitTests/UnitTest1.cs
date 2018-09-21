@@ -49,11 +49,9 @@ namespace FruitTests
 
             //Assert
             String.Equals(actual, expected);
-        }
-
-        /// <summary>
-        /// Verify Prinnt to Console
-        /// </summary>
+        }      
+       
+        
         [Test]
         public void TestPrintToConsole()
         {
@@ -74,10 +72,37 @@ namespace FruitTests
             //Assert
             Assert.AreEqual(expected, result);
         }
-               
         /// <summary>
-        /// Verify method ToString
+        /// Testing file and Frui data
         /// </summary>
+        [Test]        
+        public void TestPrintToFile()
+        {
+            // Arrange
+           
+            List<Fruit> expected = new List<Fruit>();
+            expected.Add(new Fruit( "banana", "yellow"));
+            expected.Add(new Fruit("apple", "green"));
+            expected.Add(new Fruit("strawberries", "red"));
+            
+            string result = String.Empty;
+            //Act
+            //var assembly = Assembly.GetExecutingAssembly();
+            //using (var stream = assembly.GetManifestResourceStream("Project.txt"))
+            using (var reader = new StreamReader(@"C:\Users\Orest\source\repos\DemoTask\Project.txt"))
+            {
+                string line;
+                while ((line = reader.ReadLine()) != null)
+                {
+
+                    result += line + "\r\n";
+                }
+            }
+
+            //Accert     
+            String.Equals(expected, result);
+
+        }
         [Test]
         public void TestToString()
         {
